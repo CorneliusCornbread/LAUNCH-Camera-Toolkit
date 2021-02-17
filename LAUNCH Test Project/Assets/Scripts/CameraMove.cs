@@ -2,7 +2,7 @@
 
 namespace CameraToolkit
 {
-	public class NewBehaviourScript : MonoBehaviour
+	public class CameraMove : MonoBehaviour
 	{
 		
 	}
