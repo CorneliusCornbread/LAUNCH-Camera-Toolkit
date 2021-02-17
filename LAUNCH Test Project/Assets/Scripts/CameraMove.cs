@@ -15,14 +15,29 @@ namespace CameraToolkit
 
         private float _time = 0f;
 
+        private void Start()
+        {
+            _oldPosition = transform.position;
+            _oldRotation = transform.rotation;
+        }
+
         private void Update()
         {
             if (interpolatedMove)
             {
                 _time += Time.deltaTime;
-                transform.position = Vector3.Lerp(_oldPosition, _targetPosition, _time * lerpMult);
+                float lerp = Mathf.Clamp(_time * lerpMult, 0, 1);
 
-                transform.rotation = Quaternion.Lerp(_oldRotation, _targetRotation, _time * lerpMult);
+                transform.position = Vector3.Lerp(transform.position, _targetPosition, lerp);
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, _targetRotation, lerp);
+
+                if (lerp > .99f)
+                {
+                    _time = 0;
+                    transform.position = _targetPosition;
+                    transform.rotation = _targetRotation;
+                }
             }
         }
 
@@ -40,9 +55,6 @@ namespace CameraToolkit
         {
             if (interpolatedMove)
             {
-                _oldPosition = _targetPosition;
-                _oldRotation = _targetRotation;
-
                 _targetPosition = position;
                 _targetRotation = rotation;
             }
