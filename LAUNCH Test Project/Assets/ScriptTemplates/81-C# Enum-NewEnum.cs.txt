@@ -1,0 +1,7 @@
+﻿namespace CameraToolkit
+{
+	public enum #SCRIPTNAME#
+	{
+		
+	}
+}
