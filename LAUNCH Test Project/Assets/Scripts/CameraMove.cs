@@ -7,19 +7,10 @@ namespace CameraToolkit
         public bool interpolatedMove = false;
         public float lerpMult = 1;
 
-        private Vector3 _oldPosition;
-        private Quaternion _oldRotation;
-
         private Vector3 _targetPosition;
         private Quaternion _targetRotation;
 
         private float _time = 0f;
-
-        private void Start()
-        {
-            _oldPosition = transform.position;
-            _oldRotation = transform.rotation;
-        }
 
         private void Update()
         {
