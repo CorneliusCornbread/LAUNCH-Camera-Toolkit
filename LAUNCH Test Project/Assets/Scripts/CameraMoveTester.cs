@@ -5,7 +5,7 @@ namespace CameraToolkit
 	public class CameraMoveTester : MonoBehaviour
 	{
 		[SerializeField]
-		private CameraMove cam;
+		private Interpolator cam;
 
 		[SerializeField]
 		private Vector3 position;
@@ -15,7 +15,7 @@ namespace CameraToolkit
 
         private void Update()
         {
-			cam.Move(position, Quaternion.Euler(rotation));
+			cam.targetPosition = position;
         }
     }
 }

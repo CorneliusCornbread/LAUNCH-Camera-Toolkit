@@ -220,6 +220,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2682247399338679840, guid: c3e2349c6d9fd664785415f8d3174390,
+        type: 3}
+      propertyPath: updatesPerSecond
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682247399338679840, guid: c3e2349c6d9fd664785415f8d3174390,
+        type: 3}
+      propertyPath: interpolatePosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2682247399338679840, guid: c3e2349c6d9fd664785415f8d3174390,
+        type: 3}
+      propertyPath: positionInterpSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3175435565035946770, guid: c3e2349c6d9fd664785415f8d3174390,
         type: 3}
       propertyPath: m_RootOrder
@@ -233,7 +248,7 @@ PrefabInstance:
     - target: {fileID: 3175435565035946770, guid: c3e2349c6d9fd664785415f8d3174390,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3175435565035946770, guid: c3e2349c6d9fd664785415f8d3174390,
         type: 3}
@@ -280,5 +295,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Camera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 269004468, guid: c3e2349c6d9fd664785415f8d3174390, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c3e2349c6d9fd664785415f8d3174390, type: 3}
