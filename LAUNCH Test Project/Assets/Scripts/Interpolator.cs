@@ -36,7 +36,7 @@ namespace CameraToolkit
         [SerializeField]
         [Tooltip("How fast the rotation interpolation will move in percent per second. This means the effective speed will change with the distance.")]
         [Range(.1f, 10)]
-        private float rotationInterpSpeed = 3;
+        private float rotationInterpSpeed = 4;
 
         [SerializeField]
         [Tooltip("If the distance is closer than this then the interpolator will snap to it")]
@@ -78,11 +78,22 @@ namespace CameraToolkit
 
                 transform.position = Vector3.Lerp(_startPosition, _currentPosTarget, _positionInterp);
             }
+            else
+            {
+                transform.position = targetPosition;
+                _startPosition = targetPosition;
+            }
+
             if (interpolateRotation && _targetRotDist > errorRotSnapDist)
             {
-                _rotationInterp += Time.deltaTime * positionInterpSpeed;
+                _rotationInterp += Time.deltaTime * rotationInterpSpeed;
 
                 transform.rotation = Quaternion.Slerp(_startRotation, _currentRotTarget, _rotationInterp);
+            }
+            else
+            {
+                transform.rotation = targetRotation;
+                _startRotation = targetRotation;
             }
         }
 
