@@ -289,5 +289,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa000292b000c0147af611bd3c0fe4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpolatedMove: 0
-  lerpMult: 1
+  updatesPerSecond: 60
+  interpolatePosition: 1
+  positionInterpSpeed: 4
+  errorPosSnapDist: 0.0079
+  targetPosition: {x: 0, y: 0, z: 0}
+  interpolateRotation: 1
+  rotationInterpSpeed: 3
+  errorRotSnapDist: 0.025
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
