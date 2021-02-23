@@ -7,8 +7,9 @@ namespace CameraToolkit
         [Tooltip("The target the camera should focus on.")]
 		public Transform target;
 
+        [SerializeField]
         [Tooltip("An optional interpolator component.")]
-        public Interpolator optionalInterpolator;
+        private Interpolator optionalInterpolator;
 
         private void Update()
         {
