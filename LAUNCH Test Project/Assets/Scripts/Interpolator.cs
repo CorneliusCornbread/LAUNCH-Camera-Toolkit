@@ -78,11 +78,22 @@ namespace CameraToolkit
 
                 transform.position = Vector3.Lerp(_startPosition, _currentPosTarget, _positionInterp);
             }
+            else
+            {
+                transform.position = targetPosition;
+                _startPosition = targetPosition;
+            }
+
             if (interpolateRotation && _targetRotDist > errorRotSnapDist)
             {
                 _rotationInterp += Time.deltaTime * rotationInterpSpeed;
 
                 transform.rotation = Quaternion.Slerp(_startRotation, _currentRotTarget, _rotationInterp);
+            }
+            else
+            {
+                transform.rotation = targetRotation;
+                _startRotation = targetRotation;
             }
         }
 
