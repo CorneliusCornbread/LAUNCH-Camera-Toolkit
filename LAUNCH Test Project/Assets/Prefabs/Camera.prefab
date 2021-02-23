@@ -198,7 +198,6 @@ GameObject:
   - component: {fileID: 3175435565035946773}
   - component: {fileID: 9145104512345092042}
   - component: {fileID: 2682247399338679840}
-  - component: {fileID: 269004468}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -290,20 +289,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa000292b000c0147af611bd3c0fe4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpolatedMove: 1
-  lerpMult: 0.009
---- !u!114 &269004468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3175435565035946775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c284f83d60426784ba080836da5dda90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 2682247399338679840}
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
+  updatesPerSecond: 60
+  interpolatePosition: 1
+  positionInterpSpeed: 4
+  errorPosSnapDist: 0.0079
+  targetPosition: {x: 0, y: 0, z: 0}
+  interpolateRotation: 1
+  rotationInterpSpeed: 3
+  errorRotSnapDist: 0.025
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
