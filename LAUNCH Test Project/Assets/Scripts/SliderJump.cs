@@ -17,13 +17,12 @@ public class SliderJump : MonoBehaviour
 
     public void OnSliderMove()
     {
+		int PositiveSliderValue = mainSlider.value * 500;
 		
-        startPosition = transform.position.y+ (mainSlider.value * 10);
+        startPosition = transform.position.y + (mainSlider.value * 10);
 
 		transform.position = new Vector3(transform.position.x, 
 		startPosition + Mathf.Sin(Time.time * speed), 
 		transform.position.z);
-
-		Debug.Log(mainSlider.value); // debug
     } 
 }
