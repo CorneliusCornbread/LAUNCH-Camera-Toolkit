@@ -8,12 +8,12 @@ namespace CameraToolkit
 		public void OnButtonZForwardPressed()
 		{
 			transform.position = new Vector3(transform.position.x, transform.position.y,
-				transform.position.z + 1);
+				transform.position.z - 1);
 		}
 
 		public void OnButtonZBackPressed()
 		{
-			transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1);
+			transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
 		}
 	}
 }
