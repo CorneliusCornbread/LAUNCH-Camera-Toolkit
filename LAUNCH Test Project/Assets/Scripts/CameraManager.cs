@@ -20,11 +20,12 @@ namespace CameraToolkit
                 //Create an instance of our singleton if it doesn't not already exist
                 if (_instance == null)
                 {
-                    GameObject gObj = new GameObject("Camera Manager");
-                    gObj.AddComponent<CameraManager>();
-                    Instantiate(gObj);
+                    Debug.LogWarning("No CameraManager singleton found. Creating one from scratch.");
 
-                    return gObj.GetComponent<CameraManager>();
+                    GameObject gObj = new GameObject("Camera Manager");
+                    _instance = gObj.AddComponent<CameraManager>(); ;
+                    
+                    return _instance;
                 }
                 else
                 {
@@ -37,7 +38,7 @@ namespace CameraToolkit
         #endregion
 
         [SerializeField]
-        private List<ManagedCamera> cameras;
+        private List<ManagedCamera> cameras = new List<ManagedCamera>();
 
         public int ActiveCameraIndex { get; private set; } = -1;
 

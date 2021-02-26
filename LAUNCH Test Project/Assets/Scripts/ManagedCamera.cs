@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace CameraToolkit
 {
 	/// <summary>
 	/// A sort of interface class that makes managing multiple cameras easier. 
-	/// Will automatically handle removing itself from the camera collection
+	/// Will automatically handle removing itself from the camera collection.
 	/// </summary>
 	[RequireComponent(typeof(Camera))]
 	public class ManagedCamera : MonoBehaviour
@@ -94,20 +95,37 @@ namespace CameraToolkit
 		}
         #endregion
 
+        private void Start()
+        {
+			if (autoRegisterOnStart)
+            {
+				CameraManager.Instance.AddCamera(this);
+			}
+		}
+
         private void OnDestroy()
         {
-            if (cameraIndex > -1)
+#if UNITY_EDITOR
+			//To avoid errors when exiting playmode in the editor
+			if (cameraIndex > -1 && (EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode))
+			{
+				CameraManager.Instance.RemoveCamera(cameraIndex);
+			}
+#else
+			if (cameraIndex > -1)
             {
 				CameraManager.Instance.RemoveCamera(cameraIndex);
             }
-        }
+#endif
 
-        /// <summary>
-        /// Moves the camera to the given position in world space. 
-        /// It will interpolate to that position if there is an interpolator component is available to it.
-        /// </summary>
-        /// <param name="position">Position in world space.</param>
-        public void MoveCameraPosition(Vector3 position)
+		}
+
+		/// <summary>
+		/// Moves the camera to the given position in world space. 
+		/// It will interpolate to that position if there is an interpolator component is available to it.
+		/// </summary>
+		/// <param name="position">Position in world space.</param>
+		public void MoveCameraPosition(Vector3 position)
         {
 			if (optionalInterpolator != null)
             {
