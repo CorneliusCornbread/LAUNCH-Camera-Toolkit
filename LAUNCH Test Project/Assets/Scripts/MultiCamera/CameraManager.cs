@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-namespace CameraToolkit
+namespace CameraToolkit.MultiCamera
 {
     /// <summary>
     /// A singleton which manages switching between many cameras.
@@ -20,6 +21,14 @@ namespace CameraToolkit
                 //Create an instance of our singleton if it doesn't not already exist
                 if (_instance == null)
                 {
+#if UNITY_EDITOR
+                    //To avoid creating another manager if we're quitting.
+                    if (EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode)
+                    {
+                        return null;
+                    }
+#endif
+
                     Debug.LogWarning("No CameraManager singleton found. Creating one from scratch.");
 
                     GameObject gObj = new GameObject("Camera Manager");
@@ -35,7 +44,7 @@ namespace CameraToolkit
         }
 
         private static CameraManager _instance;
-        #endregion
+#endregion
 
         [SerializeField]
         private List<ManagedCamera> cameras = new List<ManagedCamera>();
@@ -43,6 +52,24 @@ namespace CameraToolkit
         public int ActiveCameraIndex { get; private set; } = -1;
 
         public int CameraCount => cameras.Count;
+
+        /// <summary>
+        /// Gets the current active camera. Returns null if there is no active camera
+        /// </summary>
+        public ManagedCamera ActiveManagedCamera
+        {
+            get
+            {
+                if (ActiveCameraIndex < 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return cameras[ActiveCameraIndex];
+                }
+            }
+        }
 
         /// <summary>
         /// Indexes the camera collection within the CameraManager.
@@ -189,6 +216,7 @@ namespace CameraToolkit
             }
 
             cameras.Add(cam);
+            cam.SetCameraActive(false);
             cam.cameraIndex = cameras.Count - 1;
         }
 

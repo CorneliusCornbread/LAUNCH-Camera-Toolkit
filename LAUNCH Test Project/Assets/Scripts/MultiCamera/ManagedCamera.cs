@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace CameraToolkit
+namespace CameraToolkit.MultiCamera
 {
 	/// <summary>
 	/// A sort of interface class that makes managing multiple cameras easier. 
@@ -24,6 +24,10 @@ namespace CameraToolkit
 		[SerializeField]
 		[Tooltip("Should this managed camera auto register itself to the camera manager on start?")]
 		private bool autoRegisterOnStart = false;
+
+		[SerializeField]
+		[Tooltip("Should this camera set itself as the active camera on start? Will only work if auto register on start is also true.")]
+		private bool setActiveOnStart = false;
 
 		[SerializeField]
 		[Tooltip("Called when the camera has been enabled and is now the active camera.")]
@@ -100,6 +104,11 @@ namespace CameraToolkit
 			if (autoRegisterOnStart)
             {
 				CameraManager.Instance.AddCamera(this);
+
+				if (setActiveOnStart)
+                {
+					CameraManager.Instance.ChangeActiveCamera(cameraIndex);
+                }
 			}
 		}
 
