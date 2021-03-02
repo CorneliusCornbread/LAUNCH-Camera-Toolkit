@@ -116,7 +116,7 @@ namespace CameraToolkit.MultiCamera
         {
 #if UNITY_EDITOR
 			//To avoid errors when exiting playmode in the editor
-			if (cameraIndex > -1 && (EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode))
+			if (cameraIndex > -1 && !CameraManager.EDITOR_isExiting)
 			{
 				CameraManager.Instance.RemoveCamera(cameraIndex);
 			}
@@ -177,8 +177,9 @@ namespace CameraToolkit.MultiCamera
             }
         }
 
+		#region Unity Editor Validation
 #if UNITY_EDITOR
-		private void OnValidate()
+        private void OnValidate()
         {
 			//Auto grab the camera component
 			camera = GetComponent<Camera>();
@@ -187,5 +188,6 @@ namespace CameraToolkit.MultiCamera
 			optionalInterpolator = GetComponent<Interpolator>();
         }
 #endif
+        #endregion
     }
 }

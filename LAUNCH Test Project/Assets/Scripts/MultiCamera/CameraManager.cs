@@ -23,7 +23,7 @@ namespace CameraToolkit.MultiCamera
                 {
 #if UNITY_EDITOR
                     //To avoid creating another manager if we're quitting.
-                    if (EditorApplication.isPlaying && !EditorApplication.isPlayingOrWillChangePlaymode)
+                    if (EDITOR_isExiting)
                     {
                         return null;
                     }
@@ -215,6 +215,12 @@ namespace CameraToolkit.MultiCamera
                 throw new System.ArgumentNullException(nameof(cam));
             }
 
+            if (cameras.Contains(cam))
+            {
+                Debug.LogWarning("Tried to add a managed camera to the camera manager when it's already been added.");
+                return;
+            }
+
             cameras.Add(cam);
             cam.SetCameraActive(false);
             cam.cameraIndex = cameras.Count - 1;
@@ -234,6 +240,13 @@ namespace CameraToolkit.MultiCamera
             cameras[cameraIndex].SetCameraActive(false);
             cameras[cameraIndex].cameraIndex = -1;
             cameras.RemoveAt(cameraIndex);
+
+            //We have to reset the indexes on the cameras because if we remove anything other than the absolute last index 
+            //it'll shift everything.
+            for (int i = 0; i < cameras.Count; i++)
+            {
+                cameras[i].cameraIndex = i;
+            }
         }
 
         /// <summary>
@@ -254,7 +267,47 @@ namespace CameraToolkit.MultiCamera
                 return;
             }
 
+            if (cam != cameras[cam.cameraIndex])
+            {
+                Debug.LogError("The managed camera does not match it's index in the collection. " +
+                    "Has this camera's index been modified?");
+                return;
+            }
+
             RemoveCamera(cam.cameraIndex);
         }
+
+        #region Editor Debugging
+#if UNITY_EDITOR
+        public static bool EDITOR_isExiting = false;
+
+        [InitializeOnLoadMethod]
+        static void EditorLoad()
+        {
+            EDITOR_isExiting = false;
+            EditorApplication.playModeStateChanged += EditorPlayModeStateChanged;
+        }
+
+        private static void EditorPlayModeStateChanged(PlayModeStateChange obj)
+        {
+            if (obj == PlayModeStateChange.ExitingPlayMode)
+            {
+                EDITOR_isExiting = true;
+            }
+        }
+
+        [ContextMenu("Change To Next Camera")]
+        private void EditorNextCam()
+        {
+            ChangeToNextCamera();
+        }
+
+        [ContextMenu("Change To Previous Camera")]
+        private void EditorPreviousCam()
+        {
+            ChangeToPreviousCamera();
+        }
+#endif
+        #endregion
     }
 }
