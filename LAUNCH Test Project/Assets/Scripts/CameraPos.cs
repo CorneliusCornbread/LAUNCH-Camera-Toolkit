@@ -27,7 +27,8 @@ namespace CameraToolkit
             else
             {
                 transform.position += pos;
-            }}
+            }
+        }
        
         private void Start()
         {
