@@ -26,8 +26,6 @@ namespace CameraToolkit.MultiCamera
             render.material.mainTexture = image;
 
             RenderTexture.active = currentRT;
-
-            //displayImage.render = CameraManager.Instance.ActiveManagedCamera.Camera.targetTexture;
         }
     }
 }

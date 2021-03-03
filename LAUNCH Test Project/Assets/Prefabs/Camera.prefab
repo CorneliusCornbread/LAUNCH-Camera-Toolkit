@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 3175435564085489258}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 28be7e44b914383449c012352a79cacf, type: 2}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -299,7 +299,7 @@ MonoBehaviour:
   interpolateRotation: 1
   rotationInterpSpeed: 4
   errorRotSnapDist: 0.025
-  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  targetRotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &3175435564085489257
 MonoBehaviour:
   m_ObjectHideFlags: 0

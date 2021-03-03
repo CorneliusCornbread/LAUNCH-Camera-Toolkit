@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 namespace CameraToolkit
@@ -70,6 +71,15 @@ namespace CameraToolkit
         #endregion
 
         #region Unity Callbacks
+        private void Start()
+        {
+            _startPosition = transform.position;
+            _startRotation = transform.rotation;
+
+            targetPosition = transform.position;
+            targetRotation = transform.rotation;
+        }
+
         //We use OnEnable as disabling the parent game object will stop this coroutine
         private void OnEnable()
         {
@@ -86,8 +96,8 @@ namespace CameraToolkit
             }
             else
             {
-                transform.position = targetPosition;
-                _startPosition = targetPosition;
+                transform.position = _currentPosTarget;
+                _startPosition = _currentPosTarget;
             }
 
             if (interpolateRotation && _targetRotDist > errorRotSnapDist)
@@ -98,8 +108,8 @@ namespace CameraToolkit
             }
             else
             {
-                transform.rotation = targetRotation;
-                _startRotation = targetRotation;
+                transform.rotation = _currentRotTarget;
+                _startRotation = _currentRotTarget;
             }
         }
         #endregion
@@ -117,7 +127,7 @@ namespace CameraToolkit
 
                 if (interpolatePosition)
                 {
-                    _targetPosDist = Vector3.Distance(_startPosition, targetPosition);
+                    _targetPosDist = Vector3.Distance(transform.position, targetPosition);
 
                     if (_targetPosDist > errorPosSnapDist) 
                     {
@@ -135,7 +145,7 @@ namespace CameraToolkit
                 }
                 if (interpolateRotation)
                 {
-                    _targetRotDist = Quaternion.Angle(_startRotation, targetRotation) / 2;
+                    _targetRotDist = Quaternion.Angle(transform.rotation, targetRotation) / 2;
 
                     if (_targetRotDist > errorRotSnapDist)
                     {

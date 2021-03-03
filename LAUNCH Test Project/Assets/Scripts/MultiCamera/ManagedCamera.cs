@@ -26,10 +26,6 @@ namespace CameraToolkit.MultiCamera
 		private bool autoRegisterOnStart = false;
 
 		[SerializeField]
-		[Tooltip("Should this camera set itself as the active camera on start? Will only work if auto register on start is also true.")]
-		private bool setActiveOnStart = false;
-
-		[SerializeField]
 		[Tooltip("Called when the camera has been enabled and is now the active camera.")]
 		[Space(20)]
 		private UnityEvent onCameraEnable;
@@ -104,11 +100,6 @@ namespace CameraToolkit.MultiCamera
 			if (autoRegisterOnStart)
             {
 				CameraManager.Instance.AddCamera(this);
-
-				if (setActiveOnStart)
-                {
-					CameraManager.Instance.ChangeActiveCamera(cameraIndex);
-                }
 			}
 		}
 
@@ -165,8 +156,6 @@ namespace CameraToolkit.MultiCamera
 
 		internal void SetCameraActive(bool newState)
         {
-			camera.enabled = newState;
-
 			if (newState)
             {
 				onCameraEnable.Invoke();
@@ -179,6 +168,13 @@ namespace CameraToolkit.MultiCamera
 
 		#region Unity Editor Validation
 #if UNITY_EDITOR
+		[ContextMenu("Register Camera")]
+		private void EditorRegisterCamera()
+        {
+			CameraManager.Instance.AddCamera(this);
+		}
+
+
         private void OnValidate()
         {
 			//Auto grab the camera component

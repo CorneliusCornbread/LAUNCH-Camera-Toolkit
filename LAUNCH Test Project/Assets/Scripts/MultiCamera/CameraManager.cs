@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -44,7 +45,11 @@ namespace CameraToolkit.MultiCamera
         }
 
         private static CameraManager _instance;
-#endregion
+        #endregion
+
+        [SerializeField]
+        [Tooltip("The index of the serialized camera to set as the active camera on start. Set to -1 to disable.")]
+        private int activeStartCameraIndex = -1;
 
         [SerializeField]
         private List<ManagedCamera> cameras = new List<ManagedCamera>();
@@ -99,10 +104,26 @@ namespace CameraToolkit.MultiCamera
             _instance = this;
             DontDestroyOnLoad(this);
 
+            HashSet<ManagedCamera> hash = new HashSet<ManagedCamera>();
+
+            //Add the cameras to a hash to remove duplicates
+            for (int i = 0; i < cameras.Count; i++)
+            {
+                hash.Add(cameras[i]);
+            }
+
+            cameras = hash.ToList();
+
             //Update the serialized cameras to have the correct index
             for (int i = 0; i < cameras.Count; i++)
             {
                 cameras[i].cameraIndex = i;
+            }
+
+            if (activeStartCameraIndex > -1)
+            {
+                cameras[activeStartCameraIndex].SetCameraActive(true);
+                ActiveCameraIndex = activeStartCameraIndex;
             }
         }
 
@@ -306,6 +327,15 @@ namespace CameraToolkit.MultiCamera
         private void EditorPreviousCam()
         {
             ChangeToPreviousCamera();
+        }
+
+        private void OnValidate()
+        {
+            if (activeStartCameraIndex > -1 && activeStartCameraIndex > cameras.Count - 1)
+            {
+                Debug.LogError("Editor: Cannot have a active start camera index on the Camera Manager that is larger " +
+                        "than the number of serialized cameras.");
+            }
         }
 #endif
         #endregion
