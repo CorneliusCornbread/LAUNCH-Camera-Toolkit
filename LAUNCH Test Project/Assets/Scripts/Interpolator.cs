@@ -1,8 +1,14 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 namespace CameraToolkit
 {
+    /// <summary>
+    /// The class use to smooth out changes in position and rotation.
+    /// If you want to disable the interpolation without removing the component, disable the interpolation by setting the
+    /// interpolatePosition and interpolateRotation variables.
+    /// </summary>
     public class Interpolator : MonoBehaviour
     {
         [Tooltip("The number of times per second the target position is updated. Default is 60. A lower number could improve performance.")]
@@ -19,12 +25,12 @@ namespace CameraToolkit
         private float positionInterpSpeed = 4;
 
         [SerializeField]
-        [Tooltip("If the distance is closer than this then the interpolator will snap to it")]
+        [Tooltip("If the distance is closer than this then the interpolator will snap to it.")]
         [Range(.001f, .025f)]
         private float errorPosSnapDist = .008f;
 
         /// <summary>
-        /// The target position to move to
+        /// The target position to move to in world space.
         /// </summary>
         public Vector3 targetPosition;
         #endregion
@@ -39,12 +45,12 @@ namespace CameraToolkit
         private float rotationInterpSpeed = 4;
 
         [SerializeField]
-        [Tooltip("If the distance is closer than this then the interpolator will snap to it")]
+        [Tooltip("If the distance is closer than this then the interpolator will snap to it.")]
         [Range(.001f, .025f)]
         private float errorRotSnapDist = .025f;
 
         /// <summary>
-        /// The target rotation to move to
+        /// The target rotation to move to.
         /// </summary>
         public Quaternion targetRotation;
         #endregion
@@ -64,6 +70,16 @@ namespace CameraToolkit
         private float _rotationInterp;
         #endregion
 
+        #region Unity Callbacks
+        private void Start()
+        {
+            _startPosition = transform.position;
+            _startRotation = transform.rotation;
+
+            targetPosition = transform.position;
+            targetRotation = transform.rotation;
+        }
+
         //We use OnEnable as disabling the parent game object will stop this coroutine
         private void OnEnable()
         {
@@ -80,8 +96,8 @@ namespace CameraToolkit
             }
             else
             {
-                transform.position = targetPosition;
-                _startPosition = targetPosition;
+                transform.position = _currentPosTarget;
+                _startPosition = _currentPosTarget;
             }
 
             if (interpolateRotation && _targetRotDist > errorRotSnapDist)
@@ -92,10 +108,11 @@ namespace CameraToolkit
             }
             else
             {
-                transform.rotation = targetRotation;
-                _startRotation = targetRotation;
+                transform.rotation = _currentRotTarget;
+                _startRotation = _currentRotTarget;
             }
         }
+        #endregion
 
         private IEnumerator Interpolate()
         {
@@ -110,7 +127,7 @@ namespace CameraToolkit
 
                 if (interpolatePosition)
                 {
-                    _targetPosDist = Vector3.Distance(_startPosition, targetPosition);
+                    _targetPosDist = Vector3.Distance(transform.position, targetPosition);
 
                     if (_targetPosDist > errorPosSnapDist) 
                     {
@@ -128,7 +145,7 @@ namespace CameraToolkit
                 }
                 if (interpolateRotation)
                 {
-                    _targetRotDist = Quaternion.Angle(_startRotation, targetRotation) / 2;
+                    _targetRotDist = Quaternion.Angle(transform.rotation, targetRotation) / 2;
 
                     if (_targetRotDist > errorRotSnapDist)
                     {
