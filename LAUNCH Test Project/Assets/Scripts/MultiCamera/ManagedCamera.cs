@@ -177,11 +177,17 @@ namespace CameraToolkit.MultiCamera
 
         private void OnValidate()
         {
-			//Auto grab the camera component
-			camera = GetComponent<Camera>();
+			if (camera == null)
+            {
+				//Auto grab the camera component
+				camera = GetComponent<Camera>();
+			}
 
-			//Grab the interpolator component if it exists
-			optionalInterpolator = GetComponent<Interpolator>();
+			if (optionalInterpolator == null)
+            {
+				//Grab the interpolator component if it exists
+				optionalInterpolator = GetComponent<Interpolator>();
+			}
         }
 #endif
         #endregion

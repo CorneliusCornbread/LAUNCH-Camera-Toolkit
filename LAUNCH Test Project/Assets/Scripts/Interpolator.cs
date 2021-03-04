@@ -88,7 +88,15 @@ namespace CameraToolkit
 
         private void Update()
         {
-            if (interpolatePosition && _targetPosDist > errorPosSnapDist)
+            if (!interpolatePosition)
+            {
+                transform.position = targetPosition;
+                _startPosition = targetPosition;
+
+                _positionInterp = 0;
+                _currentPosTarget = targetPosition;
+            }
+            else if (_targetPosDist > errorPosSnapDist)
             {
                 _positionInterp += Time.deltaTime * positionInterpSpeed;
 
@@ -100,7 +108,15 @@ namespace CameraToolkit
                 _startPosition = _currentPosTarget;
             }
 
-            if (interpolateRotation && _targetRotDist > errorRotSnapDist)
+            if (!interpolateRotation)
+            {
+                transform.rotation = targetRotation;
+                _startRotation = targetRotation;
+
+                _rotationInterp = 0;
+                _currentRotTarget = targetRotation;
+            }
+            else if (_targetRotDist > errorRotSnapDist)
             {
                 _rotationInterp += Time.deltaTime * rotationInterpSpeed;
 
