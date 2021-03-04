@@ -12,5 +12,7 @@ The multi camera tool is a tool which allows easy management of multiple cameras
 
 ![unity context menu](https://user-images.githubusercontent.com/8294697/109999131-82d8ef00-7cd7-11eb-895e-dc3768b234de.gif)
 
+The view in the bottom left is a preview of what the currently active camera is seeing. You can get the current camera by accessing the singleton instance through `CameraManager.Instance`. If there is no singleton active currently the manager will create a singleton instance automatically when accessing the instance field.
+
 ## Distance Adjuster
 TODO
