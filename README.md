@@ -6,11 +6,11 @@ This project is a toolkit full of tools that make working with Cameras much easi
 TODO
 
 ## Multi Camera Demo
-INSERT IMAGE HERE
+![image](https://user-images.githubusercontent.com/8294697/109998053-7a33e900-7cd6-11eb-93a5-833032df0511.png)
 
 The multi camera tool is a tool which allows easy management of multiple cameras. The multi camera is split into two pieces parts, the `ManagedCamera` class and the `CameraManager` class. The managed camera is an easy interface to a camera and it's possible extra functionality (like an interpolator). The camera manager is what keeps track of these cameras, keeping track of the current active camera and allowing switching between other cameras easier. The camera manager have two camera switch functions which can be accessed in the component context menu:
 
-INSERT IMAGE FOR THAT HERE
+![unity context menu](https://user-images.githubusercontent.com/8294697/109999131-82d8ef00-7cd7-11eb-895e-dc3768b234de.gif)
 
 ## Distance Adjuster
 TODO
