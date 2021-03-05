@@ -14,5 +14,12 @@ The multi camera tool is a tool which allows easy management of multiple cameras
 
 The view in the bottom left is a preview of what the currently active camera is seeing. You can get the current camera by accessing the singleton instance through `CameraManager.Instance`. If there is no singleton active currently the manager will create a singleton instance automatically when accessing the instance field.
 
-## Distance Adjuster
+## Focus
 TODO
+
+## Distance Adjuster
+IMAGE HERE
+
+The distance adjuster tool allows you to change your distance from a target. We've created a sample scene which allows you to change the target within the focus component. There are two buttons which allow you to move the camera forwards towards the target, or backwards away from the target.
+
+GIF DEMONSTRATION
