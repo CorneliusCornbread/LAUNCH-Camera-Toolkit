@@ -76,6 +76,9 @@ namespace CameraToolkit
             _startPosition = transform.position;
             _startRotation = transform.rotation;
 
+            _currentPosTarget = transform.position;
+            _currentRotTarget = transform.rotation;
+
             targetPosition = transform.position;
             targetRotation = transform.rotation;
         }
