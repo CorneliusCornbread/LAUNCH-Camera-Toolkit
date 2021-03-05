@@ -18,8 +18,14 @@ The view in the bottom left is a preview of what the currently active camera is 
 TODO
 
 ## Distance Adjuster
-IMAGE HERE
+![image](https://user-images.githubusercontent.com/8294697/110148633-ac128180-7da2-11eb-864f-0e58c1176b45.png)
 
 The distance adjuster tool allows you to change your distance from a target. We've created a sample scene which allows you to change the target within the focus component. There are two buttons which allow you to move the camera forwards towards the target, or backwards away from the target.
 
-GIF DEMONSTRATION
+Changing Distance:
+
+![distance adjuster](https://user-images.githubusercontent.com/8294697/110149532-c731c100-7da3-11eb-8410-f9b69f76d83a.gif)
+
+Changing Target:
+
+![distance adjuster change](https://user-images.githubusercontent.com/8294697/110149567-d57fdd00-7da3-11eb-83cc-06d83ec8f07c.gif)
