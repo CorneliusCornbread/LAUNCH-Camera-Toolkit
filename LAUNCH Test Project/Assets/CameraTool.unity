@@ -337,9 +337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c284f83d60426784ba080836da5dda90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1181710746}
-  position: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0, z: 0}
 --- !u!114 &1181710746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,8 +349,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa000292b000c0147af611bd3c0fe4eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interpolatedMove: 1
-  lerpMult: 0.000001
+  updatesPerSecond: 60
+  interpolatePosition: 1
+  positionInterpSpeed: 4
+  errorPosSnapDist: 0.008
+  targetPosition: {x: 0, y: 0, z: 0}
+  interpolateRotation: 1
+  rotationInterpSpeed: 4
+  errorRotSnapDist: 0.025
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!20 &1181710747
 Camera:
   m_ObjectHideFlags: 0
