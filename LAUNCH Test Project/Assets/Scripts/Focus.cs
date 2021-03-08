@@ -24,5 +24,17 @@ namespace CameraToolkit
                 optionalInterpolator.targetRotation = Quaternion.LookRotation(target.position - transform.position);
             }
         }
+
+        #region Editor Validation
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (optionalInterpolator == null)
+            {
+                optionalInterpolator = GetComponent<Interpolator>();
+            }
+        }
+#endif
+        #endregion
     }
 }
