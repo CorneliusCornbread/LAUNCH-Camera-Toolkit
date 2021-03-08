@@ -3,14 +3,14 @@ This project is a toolkit full of tools that make working with Cameras much easi
 
 # Demos
 ## Interpolator
-IMAGE HERE
+![image](https://user-images.githubusercontent.com/8294697/110353011-30ac0c80-7ffc-11eb-8ffd-bfa0238cd25e.png)
 
 The interpolator is a component which allows you to change the position and rotation of a game object in a smoother manner. It's purpose is double, in that it can smooth out changes in a cameras position and rotation but also do the same for non camera objects as well. In the given example we use it to smooth out the position of a cube.
 
 > [!IMPORTANT]
 > To use the interpolator component you can't set the position and rotation through the transform directly. You have to set the `targetPosition` and `targetRotation` fields. You also cannot disable the whole script if you want to disable interpolation but still move the object. Use the `interpolateRotation` and the `interpolatePosition` fields to disable their respective interpolation.
 
-GIF HERE
+![interp demo](https://user-images.githubusercontent.com/8294697/110353620-e24b3d80-7ffc-11eb-92e2-fbbab98c174c.gif)
 
 ## Multi Camera Demo
 ![image](https://user-images.githubusercontent.com/8294697/109998053-7a33e900-7cd6-11eb-93a5-833032df0511.png)
