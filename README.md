@@ -15,11 +15,11 @@ The multi camera tool is a tool which allows easy management of multiple cameras
 The view in the bottom left is a preview of what the currently active camera is seeing. You can get the current camera by accessing the singleton instance through `CameraManager.Instance`. If there is no singleton active currently the manager will create a singleton instance automatically when accessing the instance field.
 
 ## Focus
-FOCUS IMAGE HERE
+![image](https://user-images.githubusercontent.com/8294697/110350200-158bcd80-7ff9-11eb-90bd-d2a9561a1428.png)
 
 The focus tool is a component which allows you to focus your camera onto any target. The focus component has a field called `target` which allows you to set the target in the editor or through code. The focus tool also has an option for an interpolator to be added. This allows you to have your camera smoothly focus on anything you may want, as well as allow you to move the camera smoothly.
 
-FOCUS GIF HERE
+![distance adjuster change](https://user-images.githubusercontent.com/8294697/110350851-c1cdb400-7ff9-11eb-9615-abd12254d458.gif)
 
 ## Distance Adjuster
 ![image](https://user-images.githubusercontent.com/8294697/110148633-ac128180-7da2-11eb-864f-0e58c1176b45.png)
