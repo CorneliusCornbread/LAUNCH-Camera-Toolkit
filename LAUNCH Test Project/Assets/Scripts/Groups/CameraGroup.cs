@@ -1,58 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace CameraToolkit.MultiCamera
+namespace CameraToolkit.Groups
 {
-    /// <summary>
-    /// A singleton which manages switching between many cameras.
-    /// </summary>
-    [DisallowMultipleComponent]
-    public class CameraManager : MonoBehaviour
+    public class CameraGroup : MonoBehaviour
     {
-        #region Singleton
-        /// <summary>
-        /// The currently active singleton instance. Will automatically create a new singleton if one does not exist.
-        /// </summary>
-        public static CameraManager Instance 
-        {
-            get 
-            {
-                //Create an instance of our singleton if it doesn't not already exist
-                if (_instance == null)
-                {
-#if UNITY_EDITOR
-                    //To avoid creating another manager if we're quitting.
-                    if (EDITOR_isExiting)
-                    {
-                        return null;
-                    }
-#endif
-
-                    Debug.LogWarning("No CameraManager singleton found. Creating one from scratch.");
-
-                    GameObject gObj = new GameObject("Camera Manager");
-                    _instance = gObj.AddComponent<CameraManager>(); ;
-                    
-                    return _instance;
-                }
-                else
-                {
-                    return _instance;
-                }
-            }
-        }
-
-        private static CameraManager _instance;
-        #endregion
-
         [SerializeField]
-        [Tooltip("The index of the serialized camera to set as the active camera on start. Set to -1 to disable.")]
+        [Tooltip("The index of the serialized camera to set as the active camera on start, " +
+                 "is clamped to collection of cameras in the array. Set to -1 to disable.")]
         private int activeStartCameraIndex = -1;
 
         [SerializeField]
-        private List<ManagedCamera> cameras = new List<ManagedCamera>();
+        private List<GroupedCamera> cameras = new List<GroupedCamera>();
 
         public int ActiveCameraIndex { get; private set; } = -1;
 
@@ -61,7 +23,7 @@ namespace CameraToolkit.MultiCamera
         /// <summary>
         /// Gets the current active camera. Returns null if there is no active camera
         /// </summary>
-        public ManagedCamera ActiveManagedCamera
+        public GroupedCamera ActiveGroupedCamera
         {
             get
             {
@@ -81,30 +43,14 @@ namespace CameraToolkit.MultiCamera
         /// </summary>
         /// <param name="i">Index</param>
         /// <returns>managed Cam at that index</returns>
-        public ManagedCamera this[int i]
+        public GroupedCamera this[int i]
         {
             get { return cameras[i]; }
         }
 
-        private void Awake()
-        {
-            if (_instance != null && _instance != this)
-            {
-                Debug.LogError("Cannot have more than one instance of CameraManager active at once." +
-                    $"Disabling 2nd instance \"{gameObject.name}\"");
-                enabled = false;
-                return;
-            }
-        }
-
         private void Start()
         {
-            if (_instance != null && _instance != this) { return; } 
-
-            _instance = this;
-            DontDestroyOnLoad(this);
-
-            HashSet<ManagedCamera> hash = new HashSet<ManagedCamera>();
+            HashSet<GroupedCamera> hash = new HashSet<GroupedCamera>();
 
             //Add the cameras to a hash to remove duplicates
             for (int i = 0; i < cameras.Count; i++)
@@ -120,9 +66,9 @@ namespace CameraToolkit.MultiCamera
                 cameras[i].cameraIndex = i;
             }
 
-            if (activeStartCameraIndex > -1)
+            if (activeStartCameraIndex > -1 && cameras.Count != 0)
             {
-                cameras[activeStartCameraIndex].SetCameraActive(true);
+                cameras[Mathf.Clamp(activeStartCameraIndex, 0, cameras.Count - 1)].SetCameraActive(true);
                 ActiveCameraIndex = activeStartCameraIndex;
             }
         }
@@ -162,7 +108,7 @@ namespace CameraToolkit.MultiCamera
         /// Changes the active camera to the given camera. Will error out if this camera hasn't been added yet.
         /// </summary>
         /// <param name="cam"></param>
-        public void ChangeActiveCamera(ManagedCamera cam)
+        public void ChangeActiveCamera(GroupedCamera cam)
         {
             if (cam == null)
             {
@@ -228,23 +174,23 @@ namespace CameraToolkit.MultiCamera
         /// <summary>
         /// Add a camera to our managed camera collection.
         /// </summary>
-        /// <param name="cam"></param>
-        public void AddCamera(ManagedCamera cam)
+        /// <param name="newCamera">Camera to add.</param>
+        public void AddCamera(GroupedCamera newCamera)
         {
-            if (cam == null)
+            if (newCamera == null)
             {
-                throw new System.ArgumentNullException(nameof(cam));
+                throw new System.ArgumentNullException(nameof(newCamera));
             }
 
-            if (cameras.Contains(cam))
+            if (cameras.Contains(newCamera))
             {
                 Debug.LogWarning("Tried to add a managed camera to the camera manager when it's already been added.");
                 return;
             }
 
-            cameras.Add(cam);
-            cam.SetCameraActive(false);
-            cam.cameraIndex = cameras.Count - 1;
+            cameras.Add(newCamera);
+            newCamera.SetCameraActive(false);
+            newCamera.cameraIndex = cameras.Count - 1;
         }
 
         /// <summary>
@@ -274,7 +220,7 @@ namespace CameraToolkit.MultiCamera
         /// Removes a camera from the camera collection and disables it. Does not destroy the camera.
         /// </summary>
         /// <param name="cam">Camera to remove</param>
-        public void RemoveCamera(ManagedCamera cam)
+        public void RemoveCamera(GroupedCamera cam)
         {
             if (cam == null)
             {
@@ -327,15 +273,6 @@ namespace CameraToolkit.MultiCamera
         private void EditorPreviousCam()
         {
             ChangeToPreviousCamera();
-        }
-
-        private void OnValidate()
-        {
-            if (activeStartCameraIndex > -1 && activeStartCameraIndex > cameras.Count - 1)
-            {
-                Debug.LogError("Editor: Cannot have a active start camera index on the Camera Manager that is larger " +
-                        "than the number of serialized cameras.");
-            }
         }
 #endif
         #endregion
