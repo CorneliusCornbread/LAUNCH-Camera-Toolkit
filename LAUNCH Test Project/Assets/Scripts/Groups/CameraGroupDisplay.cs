@@ -10,6 +10,8 @@ namespace CameraToolkit.Groups
         [SerializeField]
         private Renderer render;
 
+        private Texture2D _oldTex;
+        
         private void FixedUpdate()
         {
             Camera cam = group.ActiveGroupedCamera.Camera;
@@ -20,6 +22,7 @@ namespace CameraToolkit.Groups
 
             cam.Render();
 
+            Destroy(_oldTex);
             Texture2D image = new Texture2D(targetTexture.width, targetTexture.height);
             image.ReadPixels(new Rect(0, 0, targetTexture.width, targetTexture.height), 0, 0);
             image.Apply();
@@ -27,6 +30,8 @@ namespace CameraToolkit.Groups
             render.material.mainTexture = image;
 
             RenderTexture.active = currentRT;
+
+            _oldTex = image;
         }
     }
 }

@@ -378,7 +378,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3175435564085489254}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1239193036}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0de2a82a0e06b7f4786d15e028004ee5, type: 3}
@@ -933,6 +933,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1239193036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3175435565035946775, guid: c3e2349c6d9fd664785415f8d3174390,
+    type: 3}
+  m_PrefabInstance: {fileID: 3175435564085489254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1239193037 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3175435565035946773, guid: c3e2349c6d9fd664785415f8d3174390,
+    type: 3}
+  m_PrefabInstance: {fileID: 3175435564085489254}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1239193042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239193036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7af21fd60479464ebace13677c4046a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePersistentDataPath: 0
+  folder: C:/Unity Screenshots
+  targetCamera: {fileID: 1239193037}
 --- !u!114 &1325738006 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3175435564085489258, guid: c3e2349c6d9fd664785415f8d3174390,
